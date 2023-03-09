@@ -1,6 +1,28 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const mongoose = require('mongoose')
+
+const password = 'Kr7yhXshla8kkVf5'
+
+const url = `mongodb+srv://wadedjones:${password}@cluster0.x99knrx.mongodb.net/noteApp?retryWrites=true&w=majority`
+mongoose.set('strictQuery', false)
+mongoose.connect(url)
+
+const noteSchema = new mongoose.Schema({
+    content: String,
+    important: Boolean,
+})
+
+noteSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+    }
+})
+
+const Note = mongoose.model('Note', noteSchema)
 
 app.use(express.json())
 app.use(express.static('build'))
@@ -25,7 +47,9 @@ let notes = [
 ]
 
 app.get('/api/notes', (request, response) => {
-    response.json(notes)
+    Note.find({}).then(notes => {
+        response.json(notes)
+    })
 })
 
 app.get('/api/notes/:id', (request, response) => {
