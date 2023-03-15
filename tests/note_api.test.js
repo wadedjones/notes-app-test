@@ -7,12 +7,7 @@ const Note = require('../models/note')
 
 beforeEach(async () => {
   await Note.deleteMany({})
-
-  let noteObject = new Note(helper.initialNotes[0])
-  await noteObject.save()
-
-  noteObject = new Note(helper.initialNotes[1])
-  await noteObject.save()
+  await Note.insertMany(helper.initialNotes)
 })
 
 test('notes are returned as json', async () => {
@@ -20,7 +15,7 @@ test('notes are returned as json', async () => {
     .get('/api/notes')
     .expect(200)
     .expect('Content-Type', /application\/json/)
-}, 100000)
+})
 
 test('all notes are returned', async () => {
   const response = await api.get('/api/notes')
