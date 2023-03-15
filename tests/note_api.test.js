@@ -10,24 +10,26 @@ beforeEach(async () => {
   await Note.insertMany(helper.initialNotes)
 })
 
-test('notes are returned as json', async () => {
-  await api
-    .get('/api/notes')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-})
+describe('when there are initially some notes saved', () => {
+  test('notes are returned as json', async () => {
+    await api
+      .get('/api/notes')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  })
 
-test('all notes are returned', async () => {
-  const response = await api.get('/api/notes')
-  expect(response.body).toHaveLength(helper.initialNotes.length)
-})
+  test('all notes are returned', async () => {
+    const response = await api.get('/api/notes')
+    expect(response.body).toHaveLength(helper.initialNotes.length)
+  })
 
-test('a specific note is in the returned notes', async() => {
-  const response = await api.get('/api/notes')
-  const contents = response.body.map(r => r.content)
-  expect(contents).toContain(
-    'Browser can execute only JavaScript'
-  )
+  test('a specific note is in the returned notes', async() => {
+    const response = await api.get('/api/notes')
+    const contents = response.body.map(r => r.content)
+    expect(contents).toContain(
+      'Browser can execute only JavaScript'
+    )
+  })
 })
 
 test('a valid note can be added', async () => {
