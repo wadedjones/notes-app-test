@@ -1,8 +1,9 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpZCI6IjY0MTNjYzBiNDU5ODUyZTg1NDJmOGE4MiIsImlhdCI6MTY3OTAyMjEwNiwiZXhwIjoxNjc5MDI1NzA2fQ.A0dfekT8atAxuMRMWmPbgngJsI4A7Mk4ucXiKN-UR7U
 
 {
-    "content": "ANOTHER WADE NOTE",
+    "content": "testing for token again part 69",
     "important": true,
-    "userId": "64128dd9455828143624f631"
+    "userId": "6413cc0b459852e8542f8a82"
 }
